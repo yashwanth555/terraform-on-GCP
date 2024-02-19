@@ -1,0 +1,36 @@
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+stages:
+  - stage: GCP_TF_deploy
+    displayname: "Planning GCP resources using TF"
+    jobs:
+      - job: planning_tf
+        pool:
+          name: 'Azure pipeline'
+          vmImage: 'Windows latest'
+        steps:
+          - task: TerraformInstaller@1
+            inputs:
+             terraformVersion: 'latest'
+          - task: TerraformCLI@0
+          
+       
+
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
