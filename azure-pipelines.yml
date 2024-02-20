@@ -10,7 +10,7 @@ stages:
     #displayname: "Planning GCP resources using TF"
     jobs:
       - job: planning_tf
-        pool:
+        pool: Default
           name: 'Azure pipeline'
           vmImage: 'Windows latest'
         steps:
