@@ -7,7 +7,7 @@ trigger:
 
 stages:
   - stage: GCP_TF_deploy
-    displayname: "Planning GCP resources using TF"
+    #displayname: "Planning GCP resources using TF"
     jobs:
       - job: planning_tf
         pool:
@@ -18,22 +18,17 @@ stages:
             inputs:
              terraformVersion: 'latest'
           - task: TerraformCLI@0
-            displayName: 'check terraform version'
+            displayName: 'Initilizing Terraform'
+            env:
+              Google_credentials: $(Google_credentials)
+              Billing_Ac_Id: $(Billing_ac_id)
             inputs:
-             command: version
-          
-       
-
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
+                 command: 'init'
+           
+          - task: PowerShell@2
+            inputs:
+             targetType: 'inline'
+             script: |
+               # Write your PowerShell commands here.
+      
+                 terraform plan -v project_id=$env:project_id -v Billing_Ac_Id=$env:Billing_ac_id
