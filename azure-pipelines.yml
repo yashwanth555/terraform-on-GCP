@@ -11,7 +11,7 @@ stages:
     jobs:
       - job: planning_tf
         pool: 
-          name: 'Azure pipelines'
+          name: 'local'
           vmImage: 'Windows latest'
         steps:
           - task: TerraformInstaller@1
