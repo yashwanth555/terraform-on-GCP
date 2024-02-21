@@ -24,10 +24,12 @@ stages:
               Billing_Ac_Id: $(Billing_ac_id)
             inputs:
                  command: 'init'
+                 workingDirectory: '$(Build.SourcesDirectory)'
            
           - task: PowerShell@2
             inputs:
              targetType: 'inline'
+             workingDirectory: '$(Build.SourcesDirectory)'
              script: |
                # Write your PowerShell commands here.
       
